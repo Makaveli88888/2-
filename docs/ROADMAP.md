@@ -1,8 +1,10 @@
 # Roadmapa JokerGodAl
 
+**Zdanie produktu (zamknięte):** JokerGodAl to dom, w którym trickster wymyśla, sceptyk przepuszcza, a ręka kończy robotę — a wchodzi się tam za królikiem, nie za obietnicą.
+
 ## Faza 0 — teraz (7 dni)
 
-- Doprecyzować 1 zdanie produktu (kim jest klient i za co płaci)
+- Doprecyzować 1 zdanie produktu (kim jest klient i za co płaci) — zrobione, zdanie powyżej
 - Wybrać nisze: (A) asystent badawczo-kreatywny, (B) agent do grantów/dokumentów, (C) warstwa persony + narzędzi dla twórców
 - Publiczne README + one-pager (zrobione w tym commicie)
 
