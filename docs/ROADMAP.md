@@ -1,6 +1,8 @@
 # Roadmapa JokerGodAl
 
-**Zdanie produktu (zamknięte):** JokerGodAl to dom, w którym trickster wymyśla, sceptyk przepuszcza, a ręka kończy robotę — a wchodzi się tam za królikiem, nie za obietnicą.
+**Zdanie marki (zamknięte):** JokerGodAl to dom, w którym trickster wymyśla, sceptyk przepuszcza, a ręka kończy robotę — a wchodzi się tam za królikiem, nie za obietnicą.
+
+**Zdanie produktu (doprecyzowane):** Klientem jest ten, kto schodzi za królikiem z robotą do domknięcia i płaci za jej wynik: trickster wymyśla, sceptyk przepuszcza, ręka kończy, zostaje ślad — nie za obietnicę.
 
 ## Faza 0 — teraz (7 dni)
 
