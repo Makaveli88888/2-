@@ -1,34 +1,36 @@
-# JokerGodAl — brief naukowy (sierpień 2026)
+# JokerGodAl — brief naukowy (październik 2026)
 
 ## Teza
 
-Najsilniejszy produkt AI 2026 nie jest pojedynczym modelem, tylko **systemem agentowym**: planowanie, narzędzia, pamięć długoterminowa, weryfikacja, multi-agent. Persona „Joker God” może być warstwą interakcji (nieprzewidywalność kontrolowana + wgląd), a nie samym modelem.
+Najsilniejszy produkt AI 2026 nie jest pojedynczym modelem, tylko **systemem agentowym hybrydowym**: planowanie, narzędzia (MCP), pamięć długoterminowa, weryfikacja (decision models), multi-agent. Persona „Joker God” (Trickster) generuje hipotezy i chaos kontrolowany; Sceptyk + decision model (np. Liquid d1) weryfikuje; Executor kończy na edge lub w chmurze.
 
-## Stan wiedzy (trendy, nie hype)
+## Stan wiedzy (październik 2026)
 
-1. **Agenci stali się kategorią rynkową.** OpenAI, Anthropic, Google, xAI i laboratoria otwarte konkurują na computer-use, długich zadaniach i trwałych agentach. Sukces agentów na benchmarkach typu OSWorld wzrósł z ~12% do ~66% w dwa lata.
-2. **Koszt inteligencji spadł.** OpenAI raportuje wielokrotny spadek kosztu jednostkowego tego samego poziomu zdolności. Grok 4.5 pozycjonowany jest jako tańszy model klasy frontier.
-3. **Protokół MCP** pełni rolę „USB dla modeli” — narzędzia i dane podłączane standardem, nie custom integracjami.
-4. **Multi-agent debate** (np. eksperymenty typu Zealot / Skeptic / Trickster) pokazuje, że persona chaosu może być użyteczna jako generator hipotez, jeśli jest **głosowana i weryfikowana** przez agentów sceptycznych.
-5. **UE AI Act** (obowiązki od sierpnia 2026 dla modeli wysokiego ryzyka systemowego) wymaga transparentności, logów i kontroli. Produkt europejski musi to mieć w architekturze, nie jako afterthought.
-6. **AI zaczyna wspierać odkrycia naukowe** (hipotezy, narzędzia eksperymentalne) — nisza dla JokerGodAl: „chaotyczny generator hipotez + rygorystyczny weryfikator”.
+1. **Grok 4.7** (xAI) dostępny na Bedrock, 500k kontekst, configurable reasoning effort. Grok Bot jako multi-model orchestrator (Claude, Midjourney itd.).
+2. **On-device / Edge**: Liquid AI LFM2.5 + open d1-3B / d1-omni (decision models, 8-50ms na GPU/Jetson/Mac, zero output tokens). Apple AFM 3 (on-device Core + Advanced 20B sparse). MiniCPM-V 4.7 na iPhone. Idealne do prywatnej weryfikacji i taniego routingu.
+3. **Agenci i computer-use** dojrzałe; OSWorld ~66%+. MCP jako standard.
+4. **Telegram Mini Apps + Stars**: jedyna legalna monetyzacja digital goods wewnątrz Telegramu. Payout ~$0.013/Star via TON/Fragment po 21 dniach. Łączyć z reklamami.
+5. **AI Act UE**: logi, transparentność — architektura musi to mieć od początku.
+6. **Hybryda edge+cloud** obniża OPEX: małe modele lokalnie, frontier tylko na trudne kroki.
 
-## Hipotezy badawcze projektu
+## Hipotezy badawcze (zaktualizowane)
 
-- H1: Persona Trickster z twardym budżetem narzędzi i sędzią-weryfikatorem daje **więcej użytecznych pomysłów** niż sam frontier model, przy porównywalnym koszcie tokenów.
-- H2: Trwała pamięć + dziennik decyzji obniża halucynacje w zadaniach wielodniowych.
-- H3: Otwarte modele (Qwen / GLM / Kimi) + routing do drogiego modelu tylko na trudne kroki tną CAPEX/OPEX na tyle, by produkt był rentowny w EU.
+- H1: Trickster + decision-model verifier (d1) daje więcej użytecznych pomysłów niż sam frontier model, przy niższym koszcie.
+- H2: On-device memory + logi decyzji minimalizują halucynacje w zadaniach wielodniowych i spełniają AI Act.
+- H3: Routing open/edge (Qwen/Liquid/Apple) → Grok/Claude tylko na xhigh reasoning czyni produkt rentownym w EU.
+- H4: Telegram Stars + Mini App (persona + narzędzia) daje najszybszy realny cashflow dla twórców.
 
-## Metryki (MVP nauki)
+## Metryki MVP
 
-- % zadań zamkniętych end-to-end bez interwencji człowieka
-- koszt tokenów / ukończone zadanie
-- wskaźnik odrzuceń przez weryfikatora (fałszywe pomysły Jokera)
-- czas do pierwszej wartości dla użytkownika (TTFV)
+- % zadań zamkniętych end-to-end
+- koszt tokenów / zadanie (edge vs cloud)
+- precision weryfikatora (false positive rate)
+- TTFV i retention w Mini App
+- Stars earned / DAU
 
 ## Literatura / punkty zaczepienia
 
-- Agenci i computer-use (raporty labów 2025–2026, OSWorld, SWE-Bench Pro)
-- Multi-agent theology / debate setups (publiczne eksperymenty „AI Religion Architects” — Trickster jako persona)
-- Explainable / trustworthy AI (nowe centrum XAI w Warszawie, FENG / FNP)
-- Joker (grafika 3D): *Joker: Conditional 3D Head Synthesis With Extreme Facial Expressions* — tylko analogia nazwy, nie rdzeń produktu
+- Liquid AI d1 (paź 2026), Apple AFM 3, Grok 4.7 Bedrock
+- OSWorld, SWE-Bench Pro, multi-agent debate
+- Telegram Stars docs + Mini Empire / StarsEarn guides 2026
+- PFR Centrum Kompetencji AI, AI Startups Hunt

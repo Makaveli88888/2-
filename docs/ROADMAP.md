@@ -1,33 +1,33 @@
-# Roadmapa JokerGodAl
+# Roadmapa JokerGodAl (aktualizacja październik 2026)
 
-**Zdanie marki (zamknięte):** JokerGodAl to dom, w którym trickster wymyśla, sceptyk przepuszcza, a ręka kończy robotę — a wchodzi się tam za królikiem, nie za obietnicą.
+**Zdanie marki:** JokerGodAl to dom, w którym trickster wymyśla, sceptyk (decision model) przepuszcza, a ręka kończy robotę — a wchodzi się tam za królikiem, nie za obietnicą.
 
-**Zdanie produktu (doprecyzowane):** Klientem jest ten, kto schodzi za królikiem z robotą do domknięcia i płaci za jej wynik: trickster wymyśla, sceptyk przepuszcza, ręka kończy, zostaje ślad — nie za obietnicę.
+**Zdanie produktu:** Klient schodzi za królikiem z robotą do domknięcia i płaci za jej wynik (lub za Stars w Mini App).
 
-## Faza 0 — teraz (7 dni)
+## Faza 0 — teraz (14 dni)
 
-- Doprecyzować 1 zdanie produktu (kim jest klient i za co płaci) — zrobione, zdanie powyżej
-- Wybrać nisze: (A) asystent badawczo-kreatywny, (B) agent do grantów/dokumentów, (C) warstwa persony + narzędzi dla twórców
-- Publiczne README + one-pager (zrobione w tym commicie)
+- Zaktualizowane RESEARCH / INVESTOR / ROADMAP (ten commit)
+- Zmapować PFR AI Startups Hunt + Centrum Kompetencji AI (aplikacja)
+- Wybór niszy MVP: (A) agent research/grantów, (B) Mini App persona + narzędzia dla twórców (Stars)
+- BotFather JOKERAl + podstawowy Mini App skeleton
 
 ## Faza 1 — MVP (2–4 tygodnie)
 
-- Orchestrator: planista + Trickster + Sceptyk + Executor
+- Orchestrator: planista + Trickster + Decision-Sceptyk (d1 lub Grok low) + Executor
 - MCP: pliki, wyszukiwarka, GitHub
-- Logi decyzji (wymóg AI Act / due diligence inwestora)
-- Demo 3-minutowe na wideo
+- Logi decyzji (AI Act)
+- Telegram Mini App z 1 płatnym flow (Stars)
+- Demo 3-minutowe
 
 ## Faza 2 — przychód (30–90 dni)
 
-Ścieżki realnego pieniądza (legalne):
-1. Grant / akceleracja: Horizon Europe (narzędzie AISEMA), PFR Centrum Kompetencji AI / AI Startups Hunt, FENG, programy NCBR
-2. Pilotaż B2B: 1–3 firmy płacą za agenta dokumentowego / research
-3. Produkt twórcy: subskrypcja persony + narzędzi (nie sam voiceover Jokera — rynek jest zalany)
-4. Open-core: darmowy rdzeń, płatny hosting + pamięć + narzędzia
+1. Grant / akceleracja: PFR AI Startups Hunt, Centrum Kompetencji AI, FENG, Horizon (AISEMA)
+2. Pilotaż B2B: 1–3 firmy (agent dokumentowy)
+3. Stars revenue z Mini App (persona + boosty + subskrypcja)
+4. Open-core: darmowy rdzeń, płatny hosting/pamięć
 
-Nie obiecuję „sam zarobię miliony w nocy”. Najpierw demo + jedna płatna faktura albo grant.
+Cel: pierwsza faktura lub grant + >1000 Stars.
 
 ## Faza 3 — kapitał
 
-Gdy jest: demo, 1 metryka retencji, ścieżka przychodu.
-Cele: Bek Ventures, Kaya VC, PFR Ventures, Curiosity VC (vertical AI), Seedcamp, Antler, EIC Fund.
+Po demo + metryce (retention lub Stars) → PFR Ventures, Expeditions, Kaya VC, Curiosity VC, Antler, EIC.
