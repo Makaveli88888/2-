@@ -2,22 +2,74 @@
 
 **Projekt:** JokerGodAl (JokerGod AI)  
 **Repo:** [Makaveli88888/2-](https://github.com/Makaveli88888/2-)  
-**Status:** fundament badawczo-produktowy — sierpień 2026
+**Wersja implementacji:** 0.1.0 — fundament działającego MVP
 
-JokerGodAl to projekt agenta AI o architekturze wieloagentowej: persona „Joker God” (chaos + wgląd + kontrola) + warstwa wykonawcza (narzędzia, pamięć, protokoły MCP). Cel: produkt, który da się zmonetyzować i zgłosić do grantów / VC, a nie tylko persona czatowa.
+JokerGodAl to asystent AI z architekturą przygotowaną do rozwoju wieloagentowego. Orchestrator planuje, persona Trickster eksploruje rozwiązania, Sceptyk pilnuje ograniczeń, a Executor korzysta z jawnie dozwolonych narzędzi.
 
-## Co jest teraz
+## Co działa w kodzie v0.1.0
 
-- Krótki brief naukowy: [`docs/RESEARCH.md`](docs/RESEARCH.md)
-- Roadmapa i monetyzacja: [`docs/ROADMAP.md`](docs/ROADMAP.md)
-- One-pager dla inwestorów / grantów: [`docs/INVESTOR.md`](docs/INVESTOR.md)
+- FastAPI: chat, health check, lista narzędzi i historia konwersacji.
+- Integracja z OpenAI API przez zmienną środowiskową.
+- Trwała pamięć rozmów w SQLite.
+- Allow-lista narzędzi: kalkulator AST i zegar UTC.
+- Opcjonalny token Bearer dla API.
+- Opcjonalny bot Telegram.
+- Docker i Docker Compose.
+- Testy jednostkowe oraz GitHub Actions workflow.
 
-## Stos technologiczny (2026)
+Role agentowe są na razie logicznymi etapami jednego przebiegu modelu, a nie trzema niezależnymi agentami.
 
-- Modele: Grok 4.5 / GPT-5.6 / Claude Sonnet 5 / Qwen 3.8 / otwarte wagi
-- Agenci: MCP, computer-use, trwała pamięć, multi-agent debate
-- Edge + cloud (koszt inferencji spada, agenci rosną)
+## Szybki start
+
+```bash
+python -m venv .venv
+# aktywuj środowisko wirtualne
+pip install -r requirements.txt
+cp .env.example .env
+# ustaw OPENAI_API_KEY w .env
+uvicorn app.main:app --reload
+```
+
+API: `http://localhost:8000`  
+Dokumentacja API: `http://localhost:8000/docs`
+
+## Testy
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+## Docker
+
+```bash
+cp .env.example .env
+# ustaw OPENAI_API_KEY
+docker compose up --build
+```
+
+## Telegram
+
+Ustaw `TELEGRAM_BOT_TOKEN` i `OPENAI_API_KEY`, a następnie uruchom:
+
+```bash
+python telegram_bot.py
+```
+
+## Dokumentacja
+
+- [Architektura](docs/ARCHITECTURE.md)
+- [Instrukcja uruchomienia](docs/IMPLEMENTATION.md)
+- [Brief badawczy](docs/RESEARCH.md)
+- [Roadmapa](docs/ROADMAP.md)
+- [One-pager](docs/INVESTOR.md)
+
+## Bezpieczeństwo i ograniczenia
+
+- Nie commituj pliku `.env` ani kluczy API.
+- W produkcji ustaw `JOKER_API_TOKEN`, HTTPS, ograniczone CORS i limity ruchu.
+- Narzędzia v0.1.0 są tylko do odczytu/obliczeń; agent nie wysyła wiadomości ani nie wykonuje zakupów.
+- Przed wdrożeniem publicznym dodaj autoryzację użytkowników, rate limiting, mechanizm zatwierdzania działań i monitoring.
 
 ## Zasady
 
-Projekt nie buduje broni, oszustw ani treści nielegalnych. Persona Jokera = estetyka i styl rozumowania, nie instrukcje szkodzenia.
+Projekt nie buduje broni, oszustw ani treści nielegalnych. Persona Jokera to estetyka i styl rozumowania, nie instrukcje szkodzenia.
