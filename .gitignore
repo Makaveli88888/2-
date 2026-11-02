@@ -18,5 +18,14 @@ rad.json
 *.g.xlf
 #License-file
 *.flf
-#Test results file
-TestResults.xml
+
+# Python / JokerGodAl
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+data/
+*.db
