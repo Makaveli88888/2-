@@ -47,6 +47,14 @@ class GuardianTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(sum(d.decision == RiskOutcome.ALLOW for d in decisions), 1)
         self.assertEqual((await guard.exposure.snapshot())["total_usd"], "40")
 
+    async def test_request_id_cannot_be_reused(self):
+        guard = GuardianAngel(config(), whitelist={"market-1"})
+        req = request()
+        self.assertEqual((await guard.evaluate(req)).decision, RiskOutcome.ALLOW)
+        duplicate = await guard.evaluate(req)
+        self.assertEqual(duplicate.decision, RiskOutcome.DENY)
+        self.assertTrue(any(r.rule_id == "R-IDEMPOTENCY-01" for r in duplicate.rule_results))
+
     async def test_drawdown_is_enforced(self):
         guard = GuardianAngel(config(max_daily_drawdown_usd=Decimal("5")), whitelist={"market-1"})
         await guard.portfolio.record_pnl(Decimal("-5"))

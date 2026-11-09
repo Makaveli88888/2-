@@ -20,7 +20,7 @@ class AsyncPublicClient:
     def __init__(self, *, client: httpx.AsyncClient | None = None, requests_per_second: float = 4.0, max_retries: int = 3, timeout: float = 8.0):
         if requests_per_second <= 0 or max_retries < 0 or timeout <= 0:
             raise ValueError("Invalid public client limits")
-        self._client = client or httpx.AsyncClient(base_url=self.BASE_URL, timeout=timeout)
+        self._client = client or httpx.AsyncClient(timeout=timeout)
         self._owns_client = client is None
         self._interval = 1.0 / requests_per_second
         self._last_request = 0.0
@@ -48,10 +48,11 @@ class AsyncPublicClient:
         parsed = urlparse(path)
         if parsed.scheme or parsed.netloc or not path.startswith("/") or path.startswith("//"):
             raise ValueError("Only relative paths on the configured CLOB host are allowed")
+        url = f"{self.BASE_URL}{path}"
         for attempt in range(self._max_retries + 1):
             await self._throttle()
             try:
-                response = await self._client.get(path, params=params)
+                response = await self._client.get(url, params=params)
                 if response.status_code == 429 or response.status_code in {500, 502, 503, 504}:
                     if attempt >= self._max_retries:
                         response.raise_for_status()
