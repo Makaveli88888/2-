@@ -45,11 +45,13 @@ def markets(limit: int = Query(100, ge=1, le=100), offset: int = Query(0, ge=0))
 @router.post("/scan")
 def scan(pages: int = Query(1, ge=1, le=10),
          page_size: int = Query(100, ge=1, le=100),
-         offset: int = Query(0, ge=0)):
+         offset: int = Query(0, ge=0),
+         book_limit: int = Query(10, ge=0, le=20)):
     client = PolymarketDataClient()
     engine = PredictiveConsensusEngine(store)
     all_signals = []
     scanned = 0
+    book_errors = 0
     try:
         for page in range(pages):
             page_offset = offset + page * page_size
@@ -57,14 +59,23 @@ def scan(pages: int = Query(1, ge=1, le=10),
             if not rows:
                 break
             for market in rows:
-                all_signals.extend(engine.observe(market))
+                books = {}
+                if scanned < book_limit:
+                    for outcome_index, token_id in enumerate(market.token_ids[:len(market.outcome_prices)]):
+                        try:
+                            books[outcome_index] = client.get_order_book(token_id)
+                        except Exception:
+                            book_errors += 1
+                all_signals.extend(engine.observe(market, books=books))
                 scanned += 1
             if len(rows) < page_size:
                 break
         next_offset = offset + scanned if scanned else None
         return {"mode": "paper", "live_execution": False, "markets_scanned": scanned,
-                "start_offset": offset, "next_offset": next_offset,
-                "signals": all_signals, "model": "consensus_momentum_baseline_v0.1",
+                "markets_with_book_attempts": min(scanned, book_limit),
+                "book_read_errors": book_errors, "start_offset": offset,
+                "next_offset": next_offset, "signals": all_signals,
+                "model": "consensus_momentum_baseline_v0.1",
                 "warning": "Heuristic baseline; not calibrated and not investment advice."}
     except Exception as exc:
         raise HTTPException(status_code=502, detail="Polymarket scan failed") from exc
