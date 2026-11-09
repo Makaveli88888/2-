@@ -42,6 +42,14 @@ class Market:
                     return []
             return value if isinstance(value, list) else []
 
+        def metric(primary: str, fallback: str) -> Decimal:
+            value = raw.get(primary)
+            if value in (None, ""):
+                value = raw.get(fallback, 0)
+            if value in (None, ""):
+                value = 0
+            return decimal_value(value, minimum=Decimal("0"))
+
         prices = [decimal_value(v, minimum=Decimal("0"), maximum=Decimal("1"))
                   for v in parse_list(raw.get("outcomePrices"))]
         tokens = [str(v) for v in parse_list(raw.get("clobTokenIds")) if str(v)]
@@ -49,10 +57,10 @@ class Market:
             market_id=str(raw.get("id", "")),
             question=str(raw.get("question", "")),
             slug=str(raw.get("slug", "")),
-            active=bool(raw.get("active", raw.get("acceptingOrders", False))),
-            closed=bool(raw.get("closed", False)),
-            volume=decimal_value(raw.get("volume24hr", raw.get("volume", 0)), minimum=Decimal("0")),
-            liquidity=decimal_value(raw.get("liquidityNum", raw.get("liquidity", 0)), minimum=Decimal("0")),
+            active=raw.get("active", raw.get("acceptingOrders", False)) is True,
+            closed=raw.get("closed", False) is True,
+            volume=metric("volume24hr", "volume"),
+            liquidity=metric("liquidityNum", "liquidity"),
             outcome_prices=prices,
             token_ids=tokens,
         )
