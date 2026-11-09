@@ -31,6 +31,7 @@ def markets(limit: int = Query(100, ge=1, le=100), offset: int = Query(0, ge=0))
     try:
         rows = client.list_markets(limit=limit, offset=offset)
         return {"count": len(rows), "limit": limit, "offset": offset,
+                "next_offset": offset + len(rows) if len(rows) == limit else None,
                 "markets": [{"market_id": m.market_id, "question": m.question,
                     "slug": m.slug, "volume_24h": str(m.volume), "liquidity": str(m.liquidity),
                     "outcome_prices": [str(p) for p in m.outcome_prices],
@@ -42,20 +43,27 @@ def markets(limit: int = Query(100, ge=1, le=100), offset: int = Query(0, ge=0))
 
 
 @router.post("/scan")
-def scan(pages: int = Query(1, ge=1, le=10), page_size: int = Query(100, ge=1, le=100)):
+def scan(pages: int = Query(1, ge=1, le=10),
+         page_size: int = Query(100, ge=1, le=100),
+         offset: int = Query(0, ge=0)):
     client = PolymarketDataClient()
     engine = PredictiveConsensusEngine(store)
     all_signals = []
     scanned = 0
     try:
         for page in range(pages):
-            rows = client.list_markets(limit=page_size, offset=page * page_size)
+            page_offset = offset + page * page_size
+            rows = client.list_markets(limit=page_size, offset=page_offset)
             if not rows:
                 break
             for market in rows:
                 all_signals.extend(engine.observe(market))
                 scanned += 1
+            if len(rows) < page_size:
+                break
+        next_offset = offset + scanned if scanned else None
         return {"mode": "paper", "live_execution": False, "markets_scanned": scanned,
+                "start_offset": offset, "next_offset": next_offset,
                 "signals": all_signals, "model": "consensus_momentum_baseline_v0.1",
                 "warning": "Heuristic baseline; not calibrated and not investment advice."}
     except Exception as exc:
