@@ -54,6 +54,7 @@ class PredictiveTests(unittest.TestCase):
         self.store = PredictiveStore(str(Path(self.tmp.name) / "predictive.db"))
 
     def tearDown(self):
+        self.store.close()
         self.tmp.cleanup()
 
     def test_first_observation_is_not_falsely_bullish(self):
@@ -106,6 +107,17 @@ class PredictiveTests(unittest.TestCase):
             PaperTradingEngine(self.store).submit_limit(
                 market_id="m1", token_id="123", side="short",
                 limit_price="0.5", size="1", book=book)
+
+
+class InMemoryStoreTests(unittest.TestCase):
+    def test_memory_store_retains_schema_across_operations(self):
+        store = PredictiveStore(":memory:")
+        try:
+            store.record_snapshot("m1", "outcome_0", Decimal("0.4"),
+                                  Decimal("10"), Decimal("5"))
+            self.assertEqual(store.previous_snapshot("m1", "outcome_0"), Decimal("0.4"))
+        finally:
+            store.close()
 
 
 class ClientTests(unittest.TestCase):
