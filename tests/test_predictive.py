@@ -75,6 +75,18 @@ class PredictiveTests(unittest.TestCase):
         self.assertEqual(signal["direction"], "up")
         self.assertEqual(signal["heuristic_projection"], "0.65")
 
+    def test_signal_includes_orderbook_spread_and_depth(self):
+        market = Market("m3", "Question", "q", True, False, Decimal("1000"),
+                        Decimal("500"), [Decimal("0.50")], ["111"])
+        book = OrderBook.from_clob({
+            "bids": [{"price": "0.48", "size": "5"}],
+            "asks": [{"price": "0.52", "size": "7"}],
+        })
+        signal = PredictiveConsensusEngine(self.store).observe(market, books={0: book})[0]
+        self.assertEqual(signal["spread"], "0.04")
+        self.assertEqual(signal["top_bid_depth"], "5")
+        self.assertEqual(signal["top_ask_depth"], "7")
+
     def test_paper_buy_fills_only_against_eligible_asks(self):
         book = OrderBook.from_clob({
             "bids": [{"price": "0.40", "size": "10"}],
