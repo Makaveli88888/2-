@@ -1,9 +1,9 @@
 name: JokerGodAl tests
 on:
   push:
-    branches: [main]
+    branches: [main, joker-development]
   pull_request:
-    branches: [main]
+    branches: [main, joker-development]
 jobs:
   test:
     runs-on: ubuntu-latest
