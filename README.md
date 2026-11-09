@@ -66,6 +66,7 @@ python telegram_bot.py
 - [Architektura](docs/ARCHITECTURE.md)
 - [Instrukcja uruchomienia](docs/IMPLEMENTATION.md)
 - [Silnik predykcyjny](docs/PREDICTIVE_ENGINE.md)
+- [Enterprise Operating System](docs/ENTERPRISE_OPERATING_SYSTEM.md)
 - [Brief badawczy](docs/RESEARCH.md)
 - [Roadmapa](docs/ROADMAP.md)
 - [One-pager](docs/INVESTOR.md)
