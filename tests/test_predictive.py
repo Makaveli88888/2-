@@ -24,6 +24,15 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(market.outcome_prices, [Decimal("0.41"), Decimal("0.59")])
         self.assertEqual(market.token_ids, ["12345", "67890"])
 
+    def test_missing_gamma_metrics_default_to_zero(self):
+        market = Market.from_gamma({
+            "id": "m2", "volume24hr": None, "volume": "12",
+            "liquidityNum": None, "liquidity": "4",
+            "outcomePrices": [], "clobTokenIds": [],
+        })
+        self.assertEqual(market.volume, Decimal("12"))
+        self.assertEqual(market.liquidity, Decimal("4"))
+
     def test_decimal_rejects_nan_and_out_of_range(self):
         with self.assertRaises(ValueError):
             decimal_value("NaN")
