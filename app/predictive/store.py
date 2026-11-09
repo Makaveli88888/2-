@@ -11,10 +11,13 @@ class PredictiveStore:
     def __init__(self, path: str):
         self.path = path
         self._lock = RLock()
-        if path != ":memory:":
+        self._memory_connection = None
+        if path == ":memory:":
+            self._memory_connection = sqlite3.connect(":memory:", check_same_thread=False)
+        else:
             Path(path).parent.mkdir(parents=True, exist_ok=True)
-        with self._connect() as db:
-            db.execute("PRAGMA journal_mode=WAL")
+        with self._lock, self._connect() as db:
+            db.execute("PRAGMA journal_mode=WAL") if path != ":memory:" else None
             db.execute("PRAGMA synchronous=FULL")
             db.execute("""CREATE TABLE IF NOT EXISTS market_snapshots (
                 id INTEGER PRIMARY KEY AUTOINCREMENT, market_id TEXT NOT NULL,
@@ -29,7 +32,15 @@ class PredictiveStore:
                 created_at TEXT NOT NULL, record_hash TEXT NOT NULL)""")
 
     def _connect(self):
+        if self._memory_connection is not None:
+            return self._memory_connection
         return sqlite3.connect(self.path, timeout=10)
+
+    def close(self):
+        with self._lock:
+            if self._memory_connection is not None:
+                self._memory_connection.close()
+                self._memory_connection = None
 
     def previous_snapshot(self, market_id: str, outcome: str):
         with self._lock, self._connect() as db:
