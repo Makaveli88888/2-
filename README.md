@@ -19,6 +19,12 @@ JokerGodAl to asystent AI z architekturą przygotowaną do rozwoju wieloagentowe
 
 Role agentowe są na razie logicznymi etapami jednego przebiegu modelu, a nie trzema niezależnymi agentami.
 
+## JOKER Predictive Engine v0.1
+
+Tryb PAPER — publiczne dane rynkowe Polymarket, paginowane skanowanie Gamma, ograniczone odczyty CLOB orderbook, heurystyczny Predictive Consensus oraz symulacja zleceń bez możliwości wysyłania prawdziwych zleceń.
+
+Szczegóły: [docs/PREDICTIVE_ENGINE.md](docs/PREDICTIVE_ENGINE.md)
+
 ## Szybki start
 
 ```bash
@@ -59,6 +65,8 @@ python telegram_bot.py
 
 - [Architektura](docs/ARCHITECTURE.md)
 - [Instrukcja uruchomienia](docs/IMPLEMENTATION.md)
+- [Silnik predykcyjny](docs/PREDICTIVE_ENGINE.md)
+- [Enterprise Operating System](docs/ENTERPRISE_OPERATING_SYSTEM.md)
 - [Brief badawczy](docs/RESEARCH.md)
 - [Roadmapa](docs/ROADMAP.md)
 - [One-pager](docs/INVESTOR.md)

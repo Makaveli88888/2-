@@ -71,3 +71,8 @@ def get_conversation(conversation_id: str):
 def clear_conversation(conversation_id: str):
     store.clear(conversation_id)
     return {"conversation_id": conversation_id, "deleted": True}
+
+
+from app.predictive.api import router as predictive_router
+
+app.include_router(predictive_router, dependencies=[Depends(authorize)])

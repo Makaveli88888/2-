@@ -1,9 +1,9 @@
 name: JokerGodAl tests
 on:
   push:
-    branches: [main]
+    branches: [main, joker-development]
   pull_request:
-    branches: [main]
+    branches: [main, joker-development]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,5 +14,9 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run unit tests
+      - name: Compile Python modules
+        run: python -m compileall -q app tests
+      - name: Run unit and API smoke tests
         run: python -m unittest discover -s tests -v
+      - name: Build Docker image
+        run: docker build -t jokergodal:ci .
