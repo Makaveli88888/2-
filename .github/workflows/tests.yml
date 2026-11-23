@@ -1,12 +1,28 @@
-name: JokerGodAl tests
+name: JOKER OS tests
 on:
   push:
-    branches: [main]
+    branches: [main, feature/joker-os-v1]
   pull_request:
     branches: [main]
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: joker
+          POSTGRES_PASSWORD: test-password
+          POSTGRES_DB: joker_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U joker -d joker_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://joker:test-password@localhost:5432/joker_test
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -14,5 +30,7 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run unit tests
+      - name: Run unit and PostgreSQL integration tests
         run: python -m unittest discover -s tests -v
+      - name: Build Docker image
+        run: docker build -t joker-os:test .
