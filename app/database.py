@@ -28,11 +28,13 @@ class MemoryStore:
         self.engine: Engine = create_engine(database_url, pool_pre_ping=True, future=True)
         metadata.create_all(self.engine)
 
-    def _ensure_owner(self, db, conversation_id: str, owner_id: str) -> None:
+    def _ensure_owner(self, db, conversation_id: str, owner_id: str, create: bool = False) -> None:
         row = db.execute(
             select(conversations.c.owner_id).where(conversations.c.id == conversation_id)
         ).first()
         if row is None:
+            if not create:
+                raise PermissionError("Conversation not found")
             db.execute(conversations.insert().values(id=conversation_id, owner_id=owner_id))
         elif row.owner_id != owner_id:
             raise PermissionError("Conversation not found")
@@ -41,7 +43,7 @@ class MemoryStore:
         if role not in {"user", "assistant"}:
             raise ValueError("Unsupported message role")
         with self.engine.begin() as db:
-            self._ensure_owner(db, conversation_id, owner_id)
+            self._ensure_owner(db, conversation_id, owner_id, create=True)
             db.execute(messages.insert().values(conversation_id=conversation_id, role=role, content=content))
 
     def history(self, conversation_id: str, owner_id: str, limit: int = 20) -> list[dict[str, Any]]:
