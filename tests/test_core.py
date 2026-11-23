@@ -51,6 +51,12 @@ class MemoryTests(unittest.TestCase):
         with self.assertRaises(PermissionError):
             self.store.add_message("private-chat", "bob", "user", "próba przejęcia")
 
+    def test_unknown_conversation_is_not_created_by_read(self):
+        with self.assertRaises(PermissionError):
+            self.store.history("missing-chat", "alice")
+        with self.assertRaises(PermissionError):
+            self.store.clear("missing-chat", "alice")
+
 
 if __name__ == "__main__":
     unittest.main()
